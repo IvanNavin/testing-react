@@ -1,8 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/pages/index.module.css";
+import { useState } from "react";
 
 export default function Home() {
+  const [showMessage, setShowMessage] = useState(false);
+  
+  const handleClick = () => {
+    setShowMessage(true);
+  };
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +25,11 @@ export default function Home() {
         <p className={styles.description}>
           Get started by editing <code>pages/index.js</code>
         </p>
-
+        
+        <button onClick={handleClick}>Show message</button>
+        
+        {showMessage && <p>This is a hidden message!</p>}
+        
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h3>Documentation &rarr;</h3>

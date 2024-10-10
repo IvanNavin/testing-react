@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "@/pages/home/index";
 
 describe("Home", () => {
@@ -14,4 +14,15 @@ describe("Home", () => {
 
     expect(heading).toBeInTheDocument();
   });
+  
+  it("should show a hidden message after button click", () => {
+    const { getByText, queryByText,  } = render(<Home />);
+    const button = getByText("Show message");
+    
+    expect(queryByText("This is a hidden message!")).not.toBeInTheDocument();
+    
+    fireEvent.click(button);
+    
+    expect(screen.getByText("This is a hidden message!")).toBeInTheDocument();
+  })
 });
